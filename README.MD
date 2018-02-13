@@ -1,4 +1,4 @@
-Social login api for Angular 5. Includes Facebook and Google login.  
+Social login api for Angular 5. Includes Facebook, Google and Linkedin login.  
 
 [AOT](https://angular.io/guide/aot-compiler) Compatible.
 
@@ -24,6 +24,7 @@ import {
     AuthServiceConfig,
     GoogleLoginProvider,
     FacebookLoginProvider,
+    LinkedinLoginProvider
 } from "angular5-social-login";
 
 
@@ -39,6 +40,10 @@ export function getAuthServiceConfigs() {
           id: GoogleLoginProvider.PROVIDER_ID,
 	      provider: new GoogleLoginProvid("Your-Google-Client-Id")
         },
+	{
+	  id: LinkedinLoginProvider.PROVIDER_ID,
+	  provider: new LinkedinLoginProvider('client-id/ api-key')
+    	}
       ];
   );
   return config;
@@ -92,6 +97,8 @@ export class SigninComponent implements OnInit {
       socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
     }else if(socialPlatform == "google"){
       socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    } else if (socialPlatform === 'linkedin') {
+      socialPlatformProvider = LinkedinLoginProvider.PROVIDER_ID;
     }
     
     this.socialAuthService.signIn(socialPlatformProvider).then(
@@ -117,7 +124,8 @@ In `signin.component.html`,
 </h1>
 
 <button (click)="socialSignIn('facebook')">Sign in with Facebook</button>
-<button (click)="socialSignIn('google')">Signin in with Google</button>              
+<button (click)="socialSignIn('google')">Signin in with Google</button> 
+<button (click)="socialSignIn('linkedin')">Signin in with Linked</button>
 ```
 
 
@@ -131,4 +139,8 @@ Add `Facebook login` under products and configure `Valid OAuth redirect URIs`.
 
 Follow this official documentation on how to [
 Create a Google API Console project and client ID](https://developers.google.com/identity/sign-in/web/devconsole-project).
+
+### Linkedin Client Id:
+
+[Follow this](https://developer.linkedin.com/docs/getting-started-js-sdk)
 
